@@ -138,5 +138,7 @@ app.get('/deletefun', function (req, res) {
 var server = app.listen(5678, function () {
     var port = server.address().port
     console.log("app listening..........", port)
-
 })
+
+// Export the Express API
+module.exports = app;
