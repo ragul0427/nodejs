@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <!--first page-->
+    <div class="start_container">
+        <p>PLease click the below button for inserting,updating Searching,deleting records</p>
+        <div class="hand-down">
+            <i class="fa fa-hand-o-down" style="font-size:48px;color:chartreuse"></i>
+        </div>
+        <button id="start">Start</button>
+    </div>
+
+    <!--second page-->
+    <div class="totalContainer">
+        <div class="insertContainer">
+            <div>
+                <p id="para">Click this For <i id="hand-right" class="fa fa-hand-o-right"
+                        style="font-size:25px"></i><button id="insert">Inserting records</button></p>
+            </div>
+        </div>
+        <div class="insertContainer">
+            <div>
+                <p id="para">Click this For <i id="hand-right" class="fa fa-hand-o-right"
+                        style="font-size:25px"></i><button id="update">Updating records</button></p>
+            </div>
+        </div>
+        <div class="insertContainer">
+            <div>
+                <p id="para">Click this For <i id="hand-right" class="fa fa-hand-o-right"
+                        style="font-size:25px"></i><button id="search">Search records</button></p>
+            </div>
+        </div>
+        <div class="insertContainer">
+            <div>
+                <p id="para">Click this For <i id="hand-right" class="fa fa-hand-o-right"
+                        style="font-size:25px"></i><button id="delete">Delete records</button></p>
+            </div>
+        </div>
+    </div>
+
+    <!--Third page-->
+    <div class="container">
+        <form action="http://localhost:5678/insertfun" method="get" target="fof" class="form_controler">
+            <h1>Insert Data</h1>
+            <input type="text" name="t1" id="t1" placeholder="enter rno here">
+            <input type="text" name="t2" id="t2" placeholder="enter name here">
+            <input type="text" name="t3" id="t3" placeholder="enter mark here"><br>
+            <div id="buttons">
+                <!-- onclick="insertData()" -->
+                <button id="btn">Submit</button>
+            </div>
+            <iframe name="fof" height="200px" width="400px" id="frameset"></iframe>
+        </form>
+        <button class="backbtn">Back</button>
+    </div>
+
+    <!--third update page-->
+    <div class="containerSecond">
+        <form action="http://localhost:5678/updatefun" method="get" target="fin" class="form_controler">
+            <h1>update Data</h1>
+            <input type="text" name="t1" placeholder="enter old mark">
+            <input type="text" name="t2" placeholder="enter new mark">
+            <div id="buttons">
+                <button id="btn">Submit</button>
+            </div>
+            <iframe name="fin" height="200px" width="400px" id="frameset"></iframe>
+        </form>
+        <button class="backbtn">Back</button>
+    </div>
+
+
+    <!--third searching page-->
+    <div class="containerThird">
+        <form action="http://localhost:5678/searchfun" target="figcaption" class="form_controler" method="get">
+            <h1>Search data</h1>
+            <input type="text" name="t1" placeholder="Enter Your register No">
+            <div id="buttons">
+                <button id="btn">Submit</button>
+            </div>
+            <iframe name="figcaption" height="300px" width="400px" id="frameset"></iframe>
+        </form>
+        <button class="backbtn">Back</button>
+    </div>
+
+
+    <!--Third Deleting page-->
+    <div class="containerFourth">
+        <form action="http://localhost:5678/deletefun" target="fre" class="form_controler" method="get">
+            <h1>Delete data</h1>
+            <input type="text" name="t3" placeholder="Enter Your register No">
+            <div id="buttons">
+                <button id="btn">Submit</button>
+            </div>
+            <iframe name="fre" height="300px" width="400px" id="fre"></iframe>
+        </form>
+        <button class="backbtn">Back</button>
+    </div>
+    <div class="" style="    text-align: center;
+    margin-top: 2rem;">
+        <div class="">
+            <h2 id="lastRecordTitle"></h2>
+        </div>
+        <div class="allData" id="listData"></div>
+    </div>
+</body>
+<script src="projectjs.js"></script>
+
+</html>
