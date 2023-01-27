@@ -22,6 +22,20 @@ app.get('/alldata', (req, res) => {
     })
 })
 
+
+app.get('/totaldata', (req, res) => {
+     
+mongoClient.connect(url,(err,db)=>{
+    if(err) throw err
+    var dbo=db.db("student")
+    dbo.collection("dis").find().toArray((err,res1)=>{
+        if(err) throw err
+            res.json({ data: res1.length })
+            db.close()
+        })
+    })
+})
+
 //inbuilt express functions
 app.get("/insertfun", function (req, res) {
     var rno1 = parseInt(req.query["t1"])
