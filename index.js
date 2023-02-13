@@ -149,6 +149,46 @@ app.get('/deletefun', function (req, res) {
 })
 
 
+app.get("/findfun",(req,res)=>{
+ 
+var name=req.query["t1"]
+// console.log("roll number:",rno1)
+mc.connect(url,(err,db)=>{
+ if(err) throw err
+ var dbo=db.db("student")
+ dbo.collection("dis").find({sname:name}).toArray((err,res1)=>{
+// dbo.collection("gokul").find({sno:rno1}).toArray((err,res1)=>{
+ if (err) throw err
+ var trows=res1.length;
+ console.log("result response:",res1)
+ console.log("total records:",trows)
+ //console.log("result",res1)   
+ //console.log(res1[0]["sname"])
+ //console.log(res1[1]["sname"])
+ //console.log(res1[2]["sname"])
+ //console.log(res1[3]["sname"])
+ //res.send(res1)
+ if(trows>0)
+ {
+ var ans="<table border='2'><tr><th>Name</th><th>Age</th><th>Address</th></tr>"
+ for (var i=0;i<trows;i++)
+ {
+ ans=ans+"<tr><td>"+res1[i]['sname']+"</td><td>"+res1[i]['age']+"</td><td>"+res1[i]['address']+"</td></tr>"
+ }
+ ans=ans+"</table>"
+ res.send(ans)
+}
+else{
+ res.send("<h1><center>No Records in DB or check roll number</center></h1>")
+}
+ db.close()
+ })
+  
+})
+})
+
+
+
 var server = app.listen(5678, function () {
     var port = server.address().port
     console.log("app listening..........", port)
