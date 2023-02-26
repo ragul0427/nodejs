@@ -1,0 +1,93 @@
+//multer for sending images to folders
+
+const express = require('express');
+const app = express();
+const path = require('path');
+const multer = require('multer');
+const { log } = require('console');
+
+app.set('views',path.join(__dirname, "views" ));     ==================>it is the folder of signup.ejs=========================
+app.set('view engine',"ejs");
+ ========================================>it creating the storage========================================
+var storage = multer.diskStorage({
+    destination : function(req, file, cb){
+
+        //some work
+        cb(null, 'uploads')
+    },
+    filename :function(req, file, cb){
+        cb(null, file.originalname.replace(/\.[^/.]+$/,"") + '_' + Date.now() + path.extname(file.originalname) )
+    }
+})
+ 
+let maxSize = 2 * 1000 * 1000
+
+let upload =    multer({
+        storage : storage,
+        limits : {
+            fileSize : maxSize 
+        },
+        fileFilter : function (req, file, cb){                     //=====================>it only allows files format to store
+            console.log(file.mimetype);
+            let filetypes = /jpeg|jpg|png/;
+            let mimetype = filetypes.test(file.mimetype);
+            let extname = filetypes.test(path.extname(file.originalname).toLowerCase())
+            
+            if(mimetype && extname){
+                return cb(null, true);
+            }
+
+            cb("Error: File upload only supports the following filetypes: " +filetypes )  //===>it shows the error if there any unsupported file will be updated
+
+        }
+    }).single('mypic');               =====================>this mypic is the same name of html attribute
+
+
+app.get('/',(req,res)=>{
+    res.render('signup')
+})
+
+app.post('/upload',(req, res, next)=>{                      ======================>this upload is the same as action attribute in html
+    upload(req, res, function(err){
+        if(err) {
+            if(err instanceof multer.MulterError && err.code == "LIMIT_FILE_SIZE"){   ===>it shows the error if there is maximum size of file
+               return res.send("File size is maximum 2mb");   
+            }
+
+            res.send(err);
+        }else{
+            res.send("Success. Image Uploaded!")
+        }
+    })
+})
+
+app.listen(8080, ()=>{
+    console.log(`Server is Running`)
+})
+
+
+//create file html form within the folder of views======
+//====we want to create file extension using ejs  ......signup.ejs........
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JVLcode Fileupload in Node.js</title>
+</head>
+<body>
+    <h1>Single Fileupload</h1>
+    <form method="POST" action="/upload" enctype="multipart/form-data">
+        <span>Upload Single File</span>
+        <input type="file" name="mypic" required><br>
+        <input type="submit" value="submit">
+    </form>
+</body>
+</html>
+
+
+................create uploads folder for saving image...
+here only images going to be saved.......................................
+we must create folder for saving photos..........................................
